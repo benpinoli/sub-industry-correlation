@@ -4,7 +4,7 @@
 
 This document traces the full development of an idiosyncratic industry momentum signal, from initial economic intuition through iterative model development, covering every hypothesis tested, every dead end encountered, and the final working pipeline.
 
-TL;DR:
+## TL;DR:
 We thought we found predictive power but actually had lookahead bias for those numbers. Fixing the code reveals a much weaker, sharpe ~.2 result. 
 More tuning with principle component window and lag parameters + other regularization COULD find alpha. This could be continued in the future. 
 
