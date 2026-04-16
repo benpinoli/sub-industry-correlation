@@ -122,6 +122,8 @@ This fails due to:
 
 **Key insight:** Instead of predicting tomorrow's return, predict the **cumulative idiosyncratic return over the next 21 trading days**. Same 4 weekly-averaged PC1 lags as features, but the target is now monthly, not daily.
 
+THESE HAVE LOOKAHEAD BIAS!
+
 **Results (overlapping):**
 | Metric | Value |
 |--------|-------|
