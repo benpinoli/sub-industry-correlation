@@ -1,0 +1,13 @@
+Metric,Value
+Total rows,14001126
+Rows with signal,10340937
+Signal coverage,73.9%
+Signal mean,0.007555
+Signal std,0.639985
+Signal min,-230.660653
+Signal max,371.967564
+Signal p25,-0.124846
+Signal p50,0.005853
+Signal p75,0.138887
+Date min,2000-01-31
+Date max,2024-12-31

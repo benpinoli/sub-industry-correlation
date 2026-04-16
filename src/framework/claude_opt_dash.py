@@ -27,7 +27,7 @@ def _(marimo):
 @app.cell
 def _(marimo):
     data_dir = marimo.ui.text(value="data/weights", label="Weights directory:")
-    signal_file = marimo.ui.text(value="data/signal.parquet", label="Signal file:")
+    signal_file = marimo.ui.text(value="data/signal_final.parquet", label="Signal file:")
     marimo.hstack([data_dir, signal_file])
     return data_dir, signal_file
 
@@ -94,12 +94,10 @@ def _(marimo, weights):
 
 
 @app.cell
-def _(pl, sfp, weights):
+def _(sfp, weights):
     # weights = weights.sort('date', 'barrid').with_columns(pl.col('weight').shift(1).over('barrid'))
 
-    portfolio_returns = (
-        sfp.generate_returns_from_weights(weights).with_columns(pl.col('return').truediv(100))
-    )
+    portfolio_returns = sfp.generate_returns_from_weights(weights)
     return (portfolio_returns,)
 
 
@@ -132,9 +130,32 @@ def _(marimo):
 
 
 @app.cell
-def _(marimo, portfolio_returns, sfp):
-    _summary = sfp.generate_returns_summary_table(portfolio_returns)
+def _(marimo, pl, portfolio_returns):
+    import numpy as _np
+    import polars.selectors as _cs
+    _dates = portfolio_returns["date"].sort()
+    _n = _dates.len()
+    _span_years = (_dates[-1] - _dates[0]).days / 365.25
+    _ppy = _n / max(_span_years, 1)  # observed periods per year
+
+    _summary = (
+        portfolio_returns.select(
+            pl.col("date").n_unique().alias("Count"),
+            pl.col("return").mean().mul(_ppy).alias("Mean Return (%)"),
+            pl.col("return").std().mul(_np.sqrt(_ppy)).alias("Volatility (%)"),
+            pl.col("return").add(1).product().sub(1).mul(100).alias("Total Return (%)"),
+        )
+        .with_columns(
+            pl.col("Mean Return (%)").truediv("Volatility (%)").alias("Sharpe")
+        )
+        .with_columns(
+            pl.col("Mean Return (%)", "Volatility (%)").mul(100)
+        )
+        .with_columns(_cs.float().round(2))
+    )
     marimo.md(f"""
+    > Annualization: **{_ppy:.1f}** periods/year ({_n} obs over {_span_years:.1f} years)
+
     {_summary.to_pandas().to_markdown(index=False)}
     """)
     return

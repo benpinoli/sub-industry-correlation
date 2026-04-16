@@ -33,7 +33,7 @@ def _(marimo):
 @app.cell
 def _(marimo):
     signal_file = marimo.ui.text(
-        value="data/signal.parquet",
+        value="data/signal_final.parquet",
         label="Signal file path:"
     )
     signal_col_name = marimo.ui.text(
@@ -246,7 +246,13 @@ def _(cumul_returns, go, marimo, n_quantiles, pl):
 
 
 @app.cell
-def _(np, pl, ports_long):
+def _(np, pl, ports_long, signal_df_filtered):
+    # Compute periods per year from actual signal dates instead of assuming 252
+    _dates = signal_df_filtered["date"].unique().sort()
+    _n_dates = _dates.len()
+    _span_years = (_dates[-1] - _dates[0]).days / 365.25
+    _ppy = _n_dates / max(_span_years, 1)
+
     # Calculate performance metrics
     metrics = (
         ports_long
@@ -266,9 +272,9 @@ def _(np, pl, ports_long):
         ])
         .with_columns([
             (pl.col("cum_log_return").exp() - 1).alias("total_return"),
-            (pl.col("mean_return") / pl.col("std_return")).alias("sharpe_ratio"),
-            (pl.col("mean_return") * 252).alias("annual_return"),  # Assuming daily data
-            (pl.col("std_return") * np.sqrt(252)).alias("annual_vol"),
+            (pl.col("mean_return") / pl.col("std_return") * np.sqrt(_ppy)).alias("sharpe_ratio"),
+            (pl.col("mean_return") * _ppy).alias("annual_return"),
+            (pl.col("std_return") * np.sqrt(_ppy)).alias("annual_vol"),
         ])
         .select([
             "quantile",
