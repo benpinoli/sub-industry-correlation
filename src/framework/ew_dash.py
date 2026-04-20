@@ -41,7 +41,7 @@ def _(marimo):
         label="Signal column name:"
     )
     marimo.hstack([signal_file, signal_col_name])
-    return signal_col_name, signal_file
+    return (signal_file, signal_col_name)
 
 
 @app.cell
@@ -112,9 +112,8 @@ def _(signal_col_name, signal_df_filtered):
     plt.style.use('default')
     _signal_values = signal_df_filtered.select(signal_col_name.value).to_numpy().flatten()
     plt.figure(figsize=(10, 6))
-    plt.hist(_signal_values, bins=500, color='steelblue', edgecolor='black', alpha=0.7)
+    plt.hist(_signal_values, bins=50, color='steelblue', edgecolor='black', alpha=0.7)
     plt.title("Signal Distribution")
-    plt.xlim(-100,100)
     plt.xlabel("Signal Value")
     plt.ylabel("Frequency")
     plt.tight_layout()

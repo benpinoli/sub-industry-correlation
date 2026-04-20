@@ -18,7 +18,7 @@ def run_backtest():
         return path
 
     # Get configuration from environment variables with fallback defaults
-    signal_path = resolve_path("SIGNAL_PATH", "data/signal_final.parquet")
+    signal_path = resolve_path("SIGNAL_PATH", "data/signal.parquet")
     output_dir = resolve_path("WEIGHT_DIR", "data/weights")
     logs_dir = resolve_path("LOG_DIR", "logs")
     signal_name = os.getenv("SIGNAL_NAME", "my_first_signal")

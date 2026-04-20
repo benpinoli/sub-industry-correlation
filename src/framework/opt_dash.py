@@ -61,7 +61,7 @@ def _(marimo, signal_raw):
 @app.cell
 def _(marimo):
     import datetime
-    sample_cutoff = marimo.ui.date(value=datetime.date(2024, 1, 1), label="Sample cutoff:")
+    sample_cutoff = marimo.ui.date(value=datetime.date(2018, 1, 1), label="Sample cutoff:")
     sample_mode = marimo.ui.radio(
         options=["Full Sample", "In Sample", "Out of Sample"],
         value="Full Sample",
@@ -95,8 +95,6 @@ def _(marimo, weights):
 
 @app.cell
 def _(pl, sfp, weights):
-    # weights = weights.sort('date', 'barrid').with_columns(pl.col('weight').shift(1).over('barrid'))
-
     portfolio_returns = (
         sfp.generate_returns_from_weights(weights).with_columns(pl.col('return').truediv(100))
     )

@@ -1,16 +1,10 @@
-.PHONY: ew-dash opt-dash claude-ew-dash claude-opt-dash create-signal run-backtest
+.PHONY: ew-dash opt-dash create-signal run-backtest
 
 ew-dash:
 	uv run marimo edit src/framework/ew_dash.py
 
 opt-dash:
 	uv run marimo edit src/framework/opt_dash.py
-
-claude-ew-dash:
-	uv run marimo edit src/framework/claude_ew_dash.py
-
-claude-opt-dash:
-	uv run marimo edit src/framework/claude_opt_dash.py
 
 create-signal:
 	uv run python src/signal/create_signal.py
