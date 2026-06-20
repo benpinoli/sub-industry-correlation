@@ -7,7 +7,9 @@ This document traces the full development of an idiosyncratic industry momentum 
 ## TL;DR:
 We thought we found predictive power but actually had lookahead bias for those numbers. Fixing the code reveals a much weaker, sharpe ~.2 result. 
 More tuning with principle component window and lag parameters + other regularization COULD find alpha. This could be continued in the future. 
+
 Google Slides for initial exploration: https://docs.google.com/presentation/d/1xuuImunQNKqv8zTGstxBpqn1fb863LXRupT9mefj4AQ/edit?slide=id.g3cd1721bccf_0_41#slide=id.g3cd1721bccf_0_41
+
 Google Slides for results: https://docs.google.com/presentation/d/1WTQiRCpMIUSCLSFwnLwvAZIITvvhz-wD4bEJW1MC2Sg/edit?usp=sharing
 
 
