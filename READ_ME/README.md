@@ -1,4 +1,4 @@
-# NAICS Sub-Industry PC1 Momentum Strategy
+# NAICS Sub-Industry PC1 Momentum Strategy\
 
 ## Research Journey — From Hypothesis to Signal
 
@@ -7,6 +7,8 @@ This document traces the full development of an idiosyncratic industry momentum 
 ## TL;DR:
 We thought we found predictive power but actually had lookahead bias for those numbers. Fixing the code reveals a much weaker, sharpe ~.2 result. 
 More tuning with principle component window and lag parameters + other regularization COULD find alpha. This could be continued in the future. 
+Google Slides for results: https://docs.google.com/presentation/d/1WTQiRCpMIUSCLSFwnLwvAZIITvvhz-wD4bEJW1MC2Sg/edit?usp=sharing
+
 
 ---
 
