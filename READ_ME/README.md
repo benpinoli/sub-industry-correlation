@@ -1,4 +1,4 @@
-# NAICS Sub-Industry PC1 Momentum Strategy\
+# NAICS Sub-Industry PC1 Momentum Strategy
 
 ## Research Journey — From Hypothesis to Signal
 
